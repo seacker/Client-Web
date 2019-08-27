@@ -1,5 +1,35 @@
+.navbarpage{
+  background-color: #DB3A2D;
+  color : #fff
+}
+.bgLanding{
+  background-image: url("./image//background.png");
+  height : 90.5vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.formLogin{
+  width : 550px;
+  height: 500px;
+  background-color: #fff;
+  opacity: 0.75;
+}
+.landingPage{
+  display: inline-block;
+  margin : 0 auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
+  border: 0.5px solid grey;
+  height: 80%;
+  min-height: 80%
+}
+
 .App {
   text-align: center;
+  background-color: #DB3A2D;
 }
 
 .App-logo {
