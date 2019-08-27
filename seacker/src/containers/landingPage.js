@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-
+import Form from '../components/formLogin.js'
 
 const landingPage = () => {
-
+    return (
+        <div className="bgLanding">
+            <div>
+                <Form />
+            </div>
+            {/* <div className="landingPage">
+                <h3>Hallo this is landingPage</h3>
+            </div> */}
+        </div>
+    )
 }
 
 const mapState = (state) => {
