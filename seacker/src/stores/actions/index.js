@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import Swal from 'sweetalert2'
 
 export function loginUser(data, history){
     console.log("aku masuk sini")
@@ -22,35 +22,36 @@ export function loginUser(data, history){
                 type: 'LOGIN',
                 payload: true
             })
+            console.log(login, "ini data login")
+            localStorage.setItem('token', login.data.token)
+            // localStorage.setItem('email', login.user.email)
             history.push('/dashboard')
         })
         .catch(err=> {
             console.log(err)
+            dispatch({
+                type: 'LOADING',
+                payload: false
+            })
+            dispatch({
+                type: 'ERROR',
+                payload: err
+            })
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Invalid username / password '
+            })
         })
-            // .then(login => {
-            //     console.log('aku berhasil login, ?<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-            //     console.log(login)
-            //     dispatch({
-            //         type: 'LOADING',
-            //         payload: false
-            //     })
-            //     dispatch({
-            //         type: 'LOGIN',
-            //         payload: true
-            //     })
-            //     history.push('/dashboard')
-            // })
-            // .catch(err => {
-            //     console.log(err)
-            //     dispatch({
-            //         type: 'LOADING',
-            //         payload: false
-            //     })
-            //     dispatch({
-            //         type: 'ERROR',
-            //         payload: err
-            //     })
-            // })
+    })
+}
+
+export function checkLogin(value){
+    return(dispatch => {
+        dispatch({
+            type : 'LOGIN',
+            payload : value
+        })
     })
 }
 
