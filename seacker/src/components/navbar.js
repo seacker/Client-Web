@@ -7,7 +7,7 @@ import { Navbar, Button, Nav, Form, FormControl, NavDropdown} from 'react-bootst
 const navbarPage = () => {
     return (
     <Navbar className="navbarpage" expand="lg">
-        <Navbar.Brand href="#home">Seacker</Navbar.Brand>
+        <Navbar.Brand href="/"><img src="../image/logo.png" alt="logo"/> CIMBSeacker</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -15,8 +15,8 @@ const navbarPage = () => {
             <Nav.Link href="#link">About</Nav.Link>
             </Nav>
             <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
+            {/* <button className="btn-custom">Search</button> */}
             </Form>
         </Navbar.Collapse>
     </Navbar>

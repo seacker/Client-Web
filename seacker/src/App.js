@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import './App.css';
@@ -10,7 +10,16 @@ import store from './stores'
 
 import Navbar from './components/navbar'
 
-function App() {
+function App(props) {
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    console.log(props.history, "ini history")
+    if(localStorage){
+      
+    }
+  }, [])
+
   return (
     <div className="App">
       <Provider store={store}>

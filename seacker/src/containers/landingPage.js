@@ -5,7 +5,7 @@ import Form from '../components/formLogin.js'
 const landingPage = () => {
     return (
         <div className="bgLanding">
-            <div>
+            <div className="formposition">
                 <Form />
             </div>
             {/* <div className="landingPage">
