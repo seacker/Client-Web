@@ -24,7 +24,7 @@ function App(props) {
     <div className="App">
       <Provider store={store}>
         <Router>
-          {/* <Navbar /> */}
+          <Navbar />
           <Route exact path="/" component={LandingPage} />
           <Route path="/dashboard" component={Dashboard}/>
           <Route path="/booked" component={Booked}/>
