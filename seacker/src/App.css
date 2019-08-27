@@ -13,9 +13,30 @@
 .formLogin{
   width : 550px;
   height: 500px;
-  background-color: #fff;
-  opacity: 0.75;
+  background-color:	rgb(255,255,255, 0.75);
+  padding: 20px;
 }
+
+.btn-custom{
+  background-color: #BA3025;
+  color : #fff;
+  border: none;;
+  padding: 8px 32px;
+  text-align: center;
+}
+
+.leftButton{
+  margin-left: 10px;
+  margin-top : 5px; 
+}
+
+.formposition{
+  display: flex;
+  flex-direction:row-reverse;
+  padding: 25px;
+  padding-right: 110px; 
+}
+
 .landingPage{
   display: inline-block;
   margin : 0 auto;
@@ -27,10 +48,10 @@
   min-height: 80%
 }
 
-.App {
+/* .App {
   text-align: center;
   background-color: #DB3A2D;
-}
+} */
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -48,6 +69,8 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
 
 .App-link {
   color: #61dafb;
