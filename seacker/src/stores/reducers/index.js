@@ -9,17 +9,20 @@ export default function fetchAllSeat(state=defaultValue, action){
     switch (action.type) {
         case 'FETCH':
             return {
-                allSeat: action.state
+                allSeat: action.payload
             }
         case 'LOADING':
             return {
-                isLoading: action.state
+                isLoading: action.payload
             }
         case 'LOGIN' :
             return {
-                isLogin: action.state
+                isLogin: action.payload
             }
-    
+        case 'ERROR' : 
+            return {
+                error : action.payload
+            }
         default:
             return state
     }
