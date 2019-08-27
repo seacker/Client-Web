@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import Gambar from './components/testing'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LandingPage from './containers/landingPage'
@@ -25,7 +24,7 @@ function App(props) {
     <div className="App">
       <Provider store={store}>
         <Router>
-          <Navbar />
+          {/* <Navbar /> */}
           <Route exact path="/" component={LandingPage} />
           <Route path="/dashboard" component={Dashboard}/>
           <Route path="/booked" component={Booked}/>
@@ -45,7 +44,6 @@ function App(props) {
           Learn React
         </a>
       </header> */}
-     <Gambar></Gambar>
     </div>
   );
 }

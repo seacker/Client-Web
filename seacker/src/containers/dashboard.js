@@ -1,26 +1,46 @@
-import React, {useEffect, useState} from 'react'
-import { connect } from 'react-redux'
+import React, {Component} from 'react'  
+import { Button } from 'react-bootstrap'
 
-const Dashboard = (props) => {
-    useEffect(() => {
-        console.log(props)
-    }, [])
-
-    return (
-        <div>
-            <h3>ini dashboard page</h3>
-            <p>{JSON.stringify(props)}</p>
-            
-        </div>
-    )
-}
-
-const mapPropstoState = (state) => {
-    return {
-        ...state
+const position = [
+    {
+        x : 640,
+        y : 255
+    },
+    {
+        x : 665,
+        y : 255
+    },
+    {
+        x : 690,
+        y : 255
+    },
+    {
+        x : 715,
+        y : 255
+    },
+    {
+        x : 735,
+        y : 255
     }
-}
 
-const mapDispatchtoProps = {}
+]
 
-export default connect(mapPropstoState, mapDispatchtoProps)(Dashboard)
+class Dashboard extends Component {
+    render() {
+      return( 
+        <div style={{marginTop:'30px'}}>
+            <img src={require("../assets/landingPage.png")} style={{width:'1350px', height:'625px'}}></img>
+            {/* {
+                position.map(pos => {
+                    return(
+                        <Button style={{position:'absolute', left:pos.x, top:pos.y, zIndex:1, width:1, height:1, margin:5, padding:5, backgroundColor:'green'}}></Button>
+                    )
+                })
+            } */}
+            <Button style={{position:'absolute', left:640, top:300, zIndex:1, width:1, height:1, margin:5, padding:5, backgroundColor:'green'}}></Button>
+            <Button style={{position:'absolute', left:665, top:300, zIndex:1, width:1, height:1, margin:5, padding:5, backgroundColor:'green'}}></Button>
+        </div>
+      )
+    }
+  }
+export default Dashboard
