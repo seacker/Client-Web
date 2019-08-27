@@ -54,6 +54,22 @@ export function loginUser(data, history){
     })
 }
 
+export function fetchSeats (){
+    return(dispatch => {
+        axios.get(`http://localhost:3001/seat`)
+        .then((data)=> {
+            console.log(data)
+            dispatch({
+                type: 'FETCH',
+                payload: data
+            })
+        })
+        .catch((err)=> {
+            console.log(err)
+        })
+    })
+}
+
 
 
 
