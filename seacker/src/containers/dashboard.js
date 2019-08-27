@@ -10,6 +10,7 @@ const Dashboard = (props) => {
         <div>
             <h3>ini dashboard page</h3>
             <p>{JSON.stringify(props)}</p>
+            
         </div>
     )
 }
