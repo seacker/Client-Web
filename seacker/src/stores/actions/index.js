@@ -40,7 +40,7 @@ export function loginUser(data, history){
             Swal.fire({
                 type: 'error',
                 title: 'Oops...',
-                text: 'Invalid username / password '
+                text: JSON.stringify(err)
             })
         })
     })
@@ -57,17 +57,17 @@ export function checkLogin(value){
 
 export function fetchSeats (){
     return(dispatch => {
-        dispatch({
-            type: 'LOADING',
-            payload: true
-        })
+        // dispatch({
+        //     type: 'LOADING',
+        //     payload: true
+        // })
         axios.get(`http://localhost:3001/seat`)
         .then(({data})=> {
             console.log('success')
-            dispatch({
-                type: 'LOADING',
-                payload: false
-            })
+            // dispatch({
+            //     type: 'LOADING',
+            //     payload: false
+            // })
             dispatch({
                 type: 'FETCH',
                 payload: data

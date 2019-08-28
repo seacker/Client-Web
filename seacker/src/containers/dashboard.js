@@ -12,7 +12,7 @@ function Dashboard (props){
     const handleShow = () => setShow(true);
 
     useEffect(()=> {
-        // props.fetchSeats()
+        props.fetchSeats()
 
         if(!localStorage.getItem('token')){
             props.history.push('/')
@@ -21,7 +21,7 @@ function Dashboard (props){
     
     return( 
         <div style={{marginTop:'30px'}}>
-            {
+            {/* {
                 props.isLoading ? (
                     <h3 style={{textAlign : 'center'}}>Loading ...</h3>
                 ) : (
@@ -32,8 +32,8 @@ function Dashboard (props){
                     </div>
                     // <h6>{JSON.stringify(props.allSeat)}</h6>
                 )
-            }
-            {/* <img src={require("../assets/landingPage.png")} style={{width:'1350px', height:'625px'}} alt='denah'></img>
+            } */}
+            <img src={require("../assets/landingPage.png")} style={{width:'1350px', height:'625px'}} alt='denah'></img>
                 {
                 props.allSeat.map((pos, index) => {
                     return(
@@ -46,7 +46,7 @@ function Dashboard (props){
                             <Modal.Header closeButton>
                             <Modal.Title>Modal heading</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>{pos.blockName}</Modal.Body>
+                            <Modal.Body>coba</Modal.Body>
                             <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
@@ -59,7 +59,7 @@ function Dashboard (props){
                         </>
                     )
                 })
-            } */}
+            }
         </div>
       )
     }
@@ -71,5 +71,5 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = { fetchSeats }
 
-export default Dashboard
-// connect(mapStateToProps,mapDispatchToProps)(Dashboard)
+// export default Dashboard
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)
