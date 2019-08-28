@@ -34,7 +34,7 @@ export function loginUser(data, history){
                 payload: false
             })
             dispatch({
-                type: 'ERROR',
+                type: 'LOGINERROR',
                 payload: err
             })
             Swal.fire({
