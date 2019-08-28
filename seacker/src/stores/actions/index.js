@@ -57,9 +57,17 @@ export function checkLogin(value){
 
 export function fetchSeats (){
     return(dispatch => {
+        dispatch({
+            type: 'LOADING',
+            payload: true
+        })
         axios.get(`http://localhost:3001/seat`)
-        .then((data)=> {
-            console.log(data)
+        .then(({data})=> {
+            console.log('success')
+            dispatch({
+                type: 'LOADING',
+                payload: false
+            })
             dispatch({
                 type: 'FETCH',
                 payload: data
@@ -67,6 +75,14 @@ export function fetchSeats (){
         })
         .catch((err)=> {
             console.log(err)
+            dispatch({
+                type: 'LOADING',
+                payload: false
+            })
+            dispatch({
+                type: 'ERROR',
+                payload: err
+            })
         })
     })
 }
