@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { fetchSeats, detailSeat, bookSeat } from '../stores/actions'
 import Modal from 'react-bootstrap/Modal'
+import Meeting from '../components/meeting'
 import Spinner from 'react-bootstrap/Spinner'
 
 function Dashboard(props) {
@@ -55,6 +56,7 @@ function Dashboard(props) {
                 !props.isLoading && props.allSeat.data && (
                     <div>
                         <img src={require("../assets/landingPage.png")} style={{ width: '1350px', height: '625px' }} alt='denah'></img>
+                        <Meeting></Meeting>
                         {
                             props.allSeat.data.map((pos, index) => (
                                 pos.taker ? (
