@@ -9,12 +9,21 @@ function Dashboard(props) {
     const [show, setShow] = useState(false);
     const [ID, setId] = useState('')
     const [data, setData] = useState([])
+    const [fetching, setFetch] = useState(true)
 
-    const handleClose = (id) => {
-        // console.log(id, 'mau book nih')
-        // e.preventDefault()
+    const handleCancel = () => {
         setShow(false)
-        props.bookSeat(id)
+    }
+    
+    const handleClose = (id, e) => {
+        // console.log(id, 'mau book nih')
+        e.preventDefault()
+        fetch()
+        setFetch(false)
+        props.bookSeat(id, props.history)
+        console.log("ke click nich")
+        console.log(id, "asik ini id")
+        setShow(false)
     };
 
     const handleShow = (id) => {
@@ -29,17 +38,22 @@ function Dashboard(props) {
 
     useEffect(() => {
         fetch()
+        
         console.log(props)
         if (!localStorage.getItem('token')) {
             props.history.push('/')
         }
 
-    },[])
+    },[fetching])
 
     return (
         <div style={{ marginTop: '30px' }}>
-            {
-                !props.allSeat.isLoading && props.allSeat.data && (
+            {   !props.allSeat ? (
+                <div>
+                    <h2>hallo</h2>
+                </div>
+            ) : (
+                !props.isLoading && props.allSeat.data && (
                     <div>
                         <img src={require("../assets/landingPage.png")} style={{ width: '1350px', height: '625px' }} alt='denah'></img>
                         {
@@ -56,16 +70,16 @@ function Dashboard(props) {
                                         <div></div>
                                     ) : (
                                         props.seatDetail.detail && props.seatDetail.detail.blockName && (
-                                            <Modal show={show} onHide={handleClose} >
+                                            <Modal show={show} onHide={handleCancel} >
                                                 <Modal.Header closeButton>
                                                     <Modal.Title>Booking Seat</Modal.Title>
                                                 </Modal.Header>
                                                     <Modal.Body>Do you want to check in to seat {props.seatDetail.detail.blockName.name}-{props.seatDetail.detail.index}</Modal.Body>
                                                     <Modal.Footer>
-                                                        <Button variant="secondary" onClick={(e) => handleClose(e)}>
+                                                        <Button variant="secondary" onClick={handleCancel}>
                                                             Close
                                                         </Button>
-                                                        <Button variant="primary" onClick={() => handleClose(props.seatDetail.detail._id)}>
+                                                        <Button variant="primary" onClick={(e) => handleClose(props.seatDetail.detail._id, e)}>
                                                         Yes
                                                         </Button>
                                                     </Modal.Footer>
@@ -80,6 +94,7 @@ function Dashboard(props) {
                         }
                     </div>
                 )
+            )
             }
             
 
