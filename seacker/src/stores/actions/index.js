@@ -87,6 +87,62 @@ export function fetchSeats (){
     })
 }
 
+export function detailSeat(id){
+    return(dispatch => {
+        dispatch({
+            type: 'LOADING',
+            payload: true
+        })
+        axios.get(`http://localhost:3001/seat/${id}`)
+            .then(({data}) => {
+                dispatch({
+                    type : 'LOADING',
+                    payload : false
+                })
+                dispatch({
+                    type : 'SEAT_DETAIL',
+                    detail : data
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: 'LOADING',
+                    payload: false
+                })
+                dispatch({
+                    type : 'SEAT_DETAIL',
+                    error : err
+                })
+            })
+    })
+}
+
+export function bookSeat(id){
+    return(dispatch => {
+        dispatch({
+            type: 'LOADING',
+            payload: true
+        })
+        axios.patch(`http://localhost:3001/changeState/${id}`)
+            .then(({data}) => {
+                console.log(data)
+                dispatch({
+                    type: 'LOADING',
+                    payload: false
+                })
+            })
+            .catch(err => {
+                dispatch({
+                    type: 'LOADING',
+                    payload: false
+                })
+                dispatch({
+                    type : `ERROR`,
+                    payload : err
+                })
+            })
+    })
+}
 
 
 
