@@ -118,28 +118,31 @@ export function detailSeat(id){
     })
 }
 
-export function bookSeat(id){
+export function bookSeat(id, history){
     console.log(id,'masuk')
     return(dispatch => {
         dispatch({
             type: 'LOAD_BOOK',
             payload: true
         })
-        axios.patch(`http://localhost:3001/changeState/${id}`)
+        axios.patch(`http://localhost:3001/seat/changeState/${id}`,{}, {
+            headers: {
+                token : localStorage.getItem('token')
+            }
+        })
             .then(({data}) => {
                 console.log(data, 'ini action bokseat')
                 dispatch({
                     type: 'LOAD_BOOK',
                     payload: false
                 })
+                history.push('/dashboard')
+                fetchSeats()
             })
             .catch(err => {
+                console.log(err, 'errrrrrrrr')
                 dispatch({
-                    type: 'LOAD_BOOK',
-                    payload: false
-                })
-                dispatch({
-                    type : `ERROR`,
+                    type : `ERROR-BOOKING`,
                     payload : err
                 })
             })
