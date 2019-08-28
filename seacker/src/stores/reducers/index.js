@@ -14,10 +14,10 @@ const defaultValue = {
         error : {}
     },
     booking:{
-        isLoading: false
+        isLoading: false,
+        error:  {}
     },
     isLogin : false,
-    isLoading : false,
     error : {}
 }
 
@@ -79,6 +79,13 @@ export default function fetchAllSeat(state=defaultValue, action){
         case 'ERROR' : 
             return {
                 error : action.payload
+            }
+        case 'ERROR-BOOKING' : 
+            return {
+                ...state,
+                booking:{
+                    error: action.payload
+                }
             }
         default:
             return state
