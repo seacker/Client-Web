@@ -4,6 +4,10 @@ const defaultValue = {
         statLogin : false,
         errLogin : false
     },
+    seatDetail : {
+        detail : {},
+        error : {}
+    },
     isLogin : false,
     isLoading : false,
     error : {}
@@ -32,6 +36,14 @@ export default function fetchAllSeat(state=defaultValue, action){
                 userLogin : {
                     // statLogin : ,
                     errLogin : action.payload
+                }
+            }
+        case 'SEAT_DETAIL' : 
+            return{
+                ...state,
+                seatDetail : {
+                    detail : action.detail,
+                    error : action.error
                 }
             }
         case 'ERROR' : 
