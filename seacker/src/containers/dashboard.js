@@ -21,19 +21,13 @@ function Dashboard (props){
     
     return( 
         <div style={{marginTop:'30px'}}>
-            {/* {
+            {
                 props.isLoading ? (
                     <h3 style={{textAlign : 'center'}}>Loading ...</h3>
                 ) : (
-                    <div>
-                        {props.allSeat.map(seat => (
-                            <h6>{seat}</h6>
-                        ))}
-                    </div>
-                    // <h6>{JSON.stringify(props.allSeat)}</h6>
-                )
-            } */}
-            <img src={require("../assets/landingPage.png")} style={{width:'1350px', height:'625px'}} alt='denah'></img>
+                    props.allSeat ? (
+                        <div>
+                               <img src={require("../assets/landingPage.png")} style={{width:'1350px', height:'625px'}} alt='denah'></img>
                 {
                 props.allSeat.map((pos, index) => {
                     return(
@@ -60,6 +54,15 @@ function Dashboard (props){
                     )
                 })
             }
+                        </div>
+                    ) : (<div>
+                        <h6>error</h6>
+                    </div>
+                )
+                    // <h6>{JSON.stringify(props.allSeat)}</h6>
+                )
+            }
+         
         </div>
       )
     }
