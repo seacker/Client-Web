@@ -1,12 +1,20 @@
 const defaultValue = {
-    allSeat : [],
+    allSeat : {
+        data: [],
+        isLoading: false,
+        error: {}
+    },
     userLogin : {
         statLogin : false,
         errLogin : false
     },
     seatDetail : {
         detail : {},
+        isLoading: false,
         error : {}
+    },
+    booking:{
+        isLoading: false
     },
     isLogin : false,
     isLoading : false,
@@ -18,8 +26,31 @@ export default function fetchAllSeat(state=defaultValue, action){
         case 'FETCH':
             return {
                 ...state,
-                allSeat: action.payload
+                allSeat: {
+                    data: action.payload
+                }
             }
+        case 'LOAD_FETCH':
+            return {
+                ...state,
+                allSeat:{
+                    isLoading:action.payload
+                }
+            }
+        case 'LOAD_DETAIL':
+            return {
+                ...state,
+                seatDetail:{
+                    isLoading:action.payload
+                }
+            }
+            case 'LOAD_BOOK':
+                return {
+                    ...state,
+                    booking : {
+                        isLoading:action.payload
+                    }
+                }
         case 'LOADING':
             return {
                 ...state,
@@ -42,8 +73,7 @@ export default function fetchAllSeat(state=defaultValue, action){
             return{
                 ...state,
                 seatDetail : {
-                    detail : action.detail,
-                    error : action.error
+                    detail : action.detail
                 }
             }
         case 'ERROR' : 

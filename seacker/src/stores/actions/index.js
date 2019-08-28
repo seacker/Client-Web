@@ -57,17 +57,16 @@ export function checkLogin(value){
 
 export function fetchSeats (){
     return(dispatch => {
-        // dispatch({
-        //     type: 'LOADING',
-        //     payload: true
-        // })
+        dispatch({
+            type: 'LOAD_FETCH',
+            payload: true
+        })
         axios.get(`http://localhost:3001/seat`)
         .then(({data})=> {
-            console.log('success')
-            // dispatch({
-            //     type: 'LOADING',
-            //     payload: false
-            // })
+            dispatch({
+                type: 'LOAD_FETCH',
+                payload: false
+            })
             dispatch({
                 type: 'FETCH',
                 payload: data
@@ -76,7 +75,7 @@ export function fetchSeats (){
         .catch((err)=> {
             console.log(err)
             dispatch({
-                type: 'LOADING',
+                type: 'LOAD_FETCH',
                 payload: false
             })
             dispatch({
@@ -88,15 +87,17 @@ export function fetchSeats (){
 }
 
 export function detailSeat(id){
+    console.log('masuk detail action')
     return(dispatch => {
         dispatch({
-            type: 'LOADING',
+            type: 'LOAD_DETAIL',
             payload: true
         })
         axios.get(`http://localhost:3001/seat/${id}`)
             .then(({data}) => {
+                console.log(data, 'dari action')
                 dispatch({
-                    type : 'LOADING',
+                    type : 'LOAD_DETAIL',
                     payload : false
                 })
                 dispatch({
@@ -106,7 +107,7 @@ export function detailSeat(id){
             })
             .catch(err => {
                 dispatch({
-                    type: 'LOADING',
+                    type: 'LOAD_DETAIL',
                     payload: false
                 })
                 dispatch({
@@ -118,22 +119,23 @@ export function detailSeat(id){
 }
 
 export function bookSeat(id){
+    console.log(id,'masuk')
     return(dispatch => {
         dispatch({
-            type: 'LOADING',
+            type: 'LOAD_BOOK',
             payload: true
         })
         axios.patch(`http://localhost:3001/changeState/${id}`)
             .then(({data}) => {
-                console.log(data)
+                console.log(data, 'ini action bokseat')
                 dispatch({
-                    type: 'LOADING',
+                    type: 'LOAD_BOOK',
                     payload: false
                 })
             })
             .catch(err => {
                 dispatch({
-                    type: 'LOADING',
+                    type: 'LOAD_BOOK',
                     payload: false
                 })
                 dispatch({
