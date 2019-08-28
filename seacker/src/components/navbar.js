@@ -8,30 +8,30 @@ import { Navbar, Button, Nav, Form, FormControl, NavDropdown} from 'react-bootst
 const NavbarPage = (props) => {
     
     useEffect(() => {
-        console.log(props)
+        console.log(props, "halo aku props dr navbar")
     }, [])
 
     function logout(e){
         localStorage.removeItem('token')
         props.history.push('/')
-        props.checkLogin(false)
+        props.checkLogin()
         e.preventDefault()
     }
     
     return (
     <Navbar className="navbarpage" expand="lg">
-        <Navbar.Brand href="/"><img src="../image/logo.png" alt="logo"/> CIMBSeacker</Navbar.Brand>
+        <Navbar.Brand href="/"><img src={require('../image/logo.png')} alt="logo" width="30px"/> CIMBSeacker</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">About</Nav.Link>
+            {/* <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#link">About</Nav.Link> */}
             </Nav>
             <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
+            {/* <FormControl type="text" placeholder="Search" className="mr-sm-2"/> */}
             {/* <button className="btn-custom">Search</button> */}
             {
-                props.isLogin && (
+                props.isLogin === true && (
                     <button className="btn-custom" onClick={(e) => logout(e)}>Logout</button>
                 )
             }

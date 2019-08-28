@@ -24,8 +24,8 @@ export function loginUser(data, history){
             })
             console.log(login, "ini data login")
             localStorage.setItem('token', login.data.token)
-            // localStorage.setItem('email', login.user.email)
             history.push('/dashboard')
+            // localStorage.setItem('email', login.user.email)
         })
         .catch(err=> {
             console.log(err)
@@ -50,7 +50,7 @@ export function checkLogin(value){
     return(dispatch => {
         dispatch({
             type : 'LOGIN',
-            payload : value
+            payload : false
         })
     })
 }
