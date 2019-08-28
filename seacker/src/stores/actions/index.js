@@ -58,13 +58,13 @@ export function checkLogin(value){
 export function fetchSeats (){
     return(dispatch => {
         dispatch({
-            type: 'LOAD_FETCH',
+            type: 'LOADING',
             payload: true
         })
         axios.get(`http://localhost:3001/seat`)
         .then(({data})=> {
             dispatch({
-                type: 'LOAD_FETCH',
+                type: 'LOADING',
                 payload: false
             })
             dispatch({
@@ -136,8 +136,7 @@ export function bookSeat(id, history){
                     type: 'LOAD_BOOK',
                     payload: false
                 })
-                history.push('/dashboard')
-                fetchSeats()
+                history.push('/booked')
             })
             .catch(err => {
                 console.log(err, 'errrrrrrrr')

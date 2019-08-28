@@ -6,7 +6,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LandingPage from './containers/landingPage'
 import Dashboard from './containers/dashboard'
-import Booked from './containers/detail'
+import Booked from './containers/success'
 import {fetchSeats} from './stores/actions'
 import Navbar from './components/navbar'
 
