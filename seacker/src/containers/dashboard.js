@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'  
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { fetchSeats } from '../stores/actions'
+// import { fetchSeats } from '../stores/actions'
 import Tombol from '../components/tombol'
 
 const position = [
@@ -21,7 +21,11 @@ function Dashboard (props){
     const [data, setData] = useState([])
     
     useEffect(()=> {
-        props.fetchSeats()
+        // props.fetchSeats()
+
+        if(!localStorage.getItem('token')){
+            props.history.push('/')
+        }
     }, [])
     
     return( 
@@ -37,11 +41,12 @@ function Dashboard (props){
         </div>
       )
     }
-const mapStateToProps = state => {
-    return{
-        ...state
-    }
-}
-const mapDispatchToProps = { fetchSeats }
+// const mapStateToProps = state => {
+//     return{
+//         ...state
+//     }
+// }
+// const mapDispatchToProps = { fetchSeats }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)
+export default Dashboard
+// connect(mapStateToProps,mapDispatchToProps)(Dashboard)
