@@ -134,9 +134,20 @@ export function bookSeat(id, history){
             .catch(err => {
                 console.log(err, 'errrrrrrrr')
                 dispatch({
+                    type: 'LOAD_BOOK',
+                    payload: false
+                })
+                dispatch({
                     type : `ERROR-BOOKING`,
                     payload : err
                 })
+                Swal.fire({
+                    // type: 'error',
+                    imageUrl:`https://media.giphy.com/media/1wpb8YKWT5JmPG5VjV/200w_d.gif` ,
+                    title: 'Oops...',
+                    text: 'You already check in!'
+                })
+                
             })
     })
 }
