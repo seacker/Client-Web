@@ -10,6 +10,7 @@ function Dashboard(props) {
     const [ID, setId] = useState('')
     const [data, setData] = useState([])
     const [ubah, setUbah] = useState(false)
+    const [fetching, setFetch] = useState(true)
 
     const handleCancel = () => {
         setShow(false)
@@ -36,6 +37,8 @@ function Dashboard(props) {
     useEffect(() => {
         fetch()
         console.log(props, 'props dash')
+        
+        console.log(props)
         if (!localStorage.getItem('token')) {
             props.history.push('/')
         }
@@ -44,8 +47,12 @@ function Dashboard(props) {
 
     return (
         <div style={{ marginTop: '30px' }}>
-            {
-                !props.allSeat.isLoading && props.allSeat.data && (
+            {   !props.allSeat ? (
+                <div>
+                    <h2>hallo</h2>
+                </div>
+            ) : (
+                !props.isLoading && props.allSeat.data && (
                     <div>
                         <img src={require("../assets/landingPage.png")} style={{ width: '1350px', height: '625px' }} alt='denah'></img>
                         {
@@ -92,6 +99,7 @@ function Dashboard(props) {
                         }
                     </div>
                 )
+            )
             }
             
 

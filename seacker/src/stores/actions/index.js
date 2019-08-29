@@ -22,8 +22,8 @@ export function loginUser(data, history){
                 type: 'LOGIN',
                 payload: true
             })
-            console.log(login, "ini data login")
             localStorage.setItem('token', login.data.token)
+            console.log(history, "ini history login")
             history.push('/dashboard')
             // localStorage.setItem('email', login.user.email)
         })
@@ -50,7 +50,7 @@ export function checkLogin(value){
     return(dispatch => {
         dispatch({
             type : 'LOGIN',
-            payload : false
+            payload : value
         })
     })
 }
@@ -58,13 +58,13 @@ export function checkLogin(value){
 export function fetchSeats (){
     return(dispatch => {
         dispatch({
-            type: 'LOAD_FETCH',
+            type: 'LOADING',
             payload: true
         })
         axios.get(`http://localhost:3001/seat`)
         .then(({data})=> {
             dispatch({
-                type: 'LOAD_FETCH',
+                type: 'LOADING',
                 payload: false
             })
             dispatch({
@@ -95,7 +95,6 @@ export function detailSeat(id){
         })
         axios.get(`http://localhost:3001/seat/${id}`)
             .then(({data}) => {
-                console.log(data, 'dari action')
                 dispatch({
                     type : 'LOAD_DETAIL',
                     payload : false
@@ -131,18 +130,55 @@ export function bookSeat(id, history){
             }
         })
             .then(({data}) => {
-                console.log(data, 'ini action bokseat')
                 dispatch({
                     type: 'LOAD_BOOK',
                     payload: false
                 })
-                history.push('/dashboard')
-                fetchSeats()
+                console.log(history, "ini history action")
+                history.push('/booked')
             })
             .catch(err => {
                 console.log(err, 'errrrrrrrr')
                 dispatch({
                     type : `ERROR-BOOKING`,
+                    payload : err
+                })
+            })
+    })
+}
+
+
+export function fetchMeeting(){
+    console.log("triggered fetch meeting")
+    return(dispatch => {
+        console.log("didalem dispatch")
+        dispatch({
+            type: `LOADING-MEETING`,
+            payload : true
+        })
+        console.log(localStorage.getItem('token'))
+        axios.get(`http://localhost:3001/booking`,{
+            headers: {
+                token : localStorage.getItem('token')
+            }
+        }).then(({data}) => {
+                dispatch({
+                    type: `LOADING-MEETING`,
+                    payload : false
+                })
+                dispatch({
+                    type : `DATA-MEETING`,
+                    payload : data
+                })
+            })
+            .catch(err => {
+                console.log(err, "ini error fetch meeting")
+                dispatch({
+                    type: `LOADING-MEETING`,
+                    payload : false
+                })
+                dispatch({
+                    type: `ERROR-MEETING`,
                     payload : err
                 })
             })
