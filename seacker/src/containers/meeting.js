@@ -2,15 +2,15 @@ import React, {useState, useEffect} from 'react'
 import TimePicker from 'react-bootstrap-time-picker'
 import {Container, Row, Col, Table, Form, Button} from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { fetchMeeting } from '../stores/actions'
+import { fetchMeeting, bookMeeting } from '../stores/actions'
 
 function MeetingRoom(props){
     // const [time]
     const [time, setTime] = useState(0)
     const [gendTime, setGETime] = useState(0)
     const [date, setDate] = useState('')
-    const [startTime, setStartTime] = useState('')
-    const [endTime, setEndTime] = useState('')
+    const [startBook, setStartTime] = useState('')
+    const [endBook, setEndTime] = useState('')
     const [meetingNow, setMeetingNow] = useState([])
     const [color1, setColor1] = useState('green')
     const [color2, setColor2] = useState('green')
@@ -20,7 +20,6 @@ function MeetingRoom(props){
 
     useEffect(() => {
         props.fetchMeeting()
-        console.log(props.fetchMeeting(), "ini apa hasilnya? ini di useeffect")
 
         if (!localStorage.getItem('token')) {
             props.history.push('/')
@@ -31,13 +30,13 @@ function MeetingRoom(props){
     function getDate(value){
         // console.log(new Date(value), "ini datenya")
         setDate(value)
-        console.log(props.meeting, "ini jadwal meeting")
         const data = props.meeting.data
 
         const filter = []
         data.forEach(schedule => {
-            // console.log(schedule.date.substring(0, 10) === value, "ini schedule")
-            if(schedule.date.substring(0, 10) === value){
+            // console.log(schedule.date, "halo")
+            console.log(schedule.date.substring(0, 10) === value, "ini schedule")
+            if(schedule.date.substring(0,10) === value){
                 filter.push(schedule)
             }
         })
@@ -60,26 +59,20 @@ function MeetingRoom(props){
             } else {
                 stringMinute = m
             }
-        console.log(h, m, "ini hasil convert")
-        console.log(`${stringHour}:${stringMinute}`)
         var dateString = `${stringHour}:${stringMinute}`
 
         return dateString
     }
     
     function getTime(time){
-        console.log(time, "ini valuenyaaaa")
         setTime(time)
         const timeString = convert(time)
-        console.log(timeString)
         setStartTime(timeString)
     }
 
     function getEndTime(gendTime){
-        console.log(gendTime, "ini gendTime")
         setGETime(gendTime)
         const converted = convert(gendTime)
-        console.log(converted)
         setEndTime(converted)
     }
 
@@ -87,12 +80,11 @@ function MeetingRoom(props){
     const [colorB, setColorB] = useState(false)
     const [colorC, setColorC] = useState(false)
     const [colorD, setColorD] = useState(false)
+
     function changeColor1(){
-        console.log('masuk awal color1')
         setColor1('black')
         setColorA(true)
         if(color1 === 'black'){
-            console.log('masuk ganti color 1')
             setColorA(false)
             setColor1('green')
             
@@ -101,26 +93,26 @@ function MeetingRoom(props){
     function changeColor2(){
         setColor2('black')
         setColorB(true)
-        if(color1 === 'black'){
+        if(color2 === 'black'){
             setColorB(false)
-            setColor1('green')
+            setColor2('green')
             
         }
     }
     function changeColor3(){
         setColor3('black')
         setColorC(true)
-        if(color1 === 'black'){
+        if(color3 === 'black'){
             setColorC(false)
-            setColor1('green')
+            setColor3('green')
         }
     }
     function changeColor4(){
         setColor4('black')
         setColorD(true)
-        if(color1 === 'black'){
+        if(color4 === 'black'){
             setColorD(false)
-            setColor1('green')
+            setColor4('green')
         }
     }
 
@@ -133,9 +125,19 @@ function MeetingRoom(props){
         colorD && (arr.push('D'))
         if(colorA === true || colorB === true || colorC === true || colorD === true){
             setRooms(arr)
-            console.log(rooms)
         }
+
+        props.bookMeeting({
+            arrRooms: rooms,
+            startBook,
+            endBook,
+            date
+        })
     }
+
+    useEffect(()=> {
+        
+    },[rooms])
 
     return (
         <Container fluid>
@@ -216,7 +218,6 @@ function MeetingRoom(props){
                                 ></Button>
                         </div>
                         <div>
-                            <Button onClick={ () => saveRoom()}></Button>
                             <button className="btn-custom" type="submit" onClick={ () => saveRoom()}>Submit</button>
                         </div>
                         </Form>
@@ -233,6 +234,6 @@ const mapStatetoProps = state => {
     }
 }
 
-const mapDispatchtoProps = { fetchMeeting }
+const mapDispatchtoProps = { fetchMeeting, bookMeeting }
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(MeetingRoom)

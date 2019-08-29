@@ -128,8 +128,7 @@ export function bookSeat(id, history){
                     type: 'LOAD_BOOK',
                     payload: false
                 })
-                console.log(history, "ini history action")
-                history.push('/booked')
+                history.push('/booked', {from:'seat'})
             })
             .catch(err => {
                 console.log(err, 'errrrrrrrr')
@@ -143,14 +142,11 @@ export function bookSeat(id, history){
 
 
 export function fetchMeeting(){
-    console.log("triggered fetch meeting")
     return(dispatch => {
-        console.log("didalem dispatch")
         dispatch({
             type: `LOADING-MEETING`,
             payload : true
         })
-        console.log(localStorage.getItem('token'))
         axios.get(`http://localhost:3001/booking`,{
             headers: {
                 token : localStorage.getItem('token')
@@ -166,7 +162,6 @@ export function fetchMeeting(){
                 })
             })
             .catch(err => {
-                console.log(err, "ini error fetch meeting")
                 dispatch({
                     type: `LOADING-MEETING`,
                     payload : false
@@ -179,6 +174,36 @@ export function fetchMeeting(){
     })
 }
 
+export function bookMeeting(data, history){
+    console.log(data, 'data booking meeting ')
+    return(dispatch => {
+        dispatch({
+            type: 'LOAD_BOOKMEET',
+            payload: true
+        })
+        axios.post(`http://localhost:3001/booking`,{data}, {
+            headers: {
+                token : localStorage.getItem('token')
+            }
+        })
+            .then(({data}) => {
+                console.log(data, 'dari action booking meeting')
+                dispatch({
+                    type: 'LOAD_BOOKMEET',
+                    payload: false
+                })
+                console.log(history, "ini history action")
+                history.push('/booked', {from:'meeting'})
+            })
+            .catch(err => {
+                console.log(err, 'errrrrrrrr')
+                dispatch({
+                    type : `ERROR-MEETINGBOOK`,
+                    payload : err
+                })
+            })
+    })
+}
 
 
 
