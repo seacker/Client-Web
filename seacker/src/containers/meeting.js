@@ -77,6 +77,11 @@ function MeetingRoom(props){
         console.log(converted)
         setEndTime(converted)
     }
+
+    function bookMeetingRoom(){
+
+    }
+    
     return (
         <Container fluid>
             <Row className ="paddingPage">
