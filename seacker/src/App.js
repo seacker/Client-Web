@@ -30,9 +30,9 @@ function App(props) {
         <Router>
           <Navbar />
           <Route exact path="/" component={LandingPage} />
-          <Route path="/dashboard" component={Dashboard}/>
-          <Route path="/booked" component={Booked}/>
-          <Route path="/meeting" component={Meeting} />
+          <Route exact path="/dashboard" component={Dashboard}/>
+          <Route exact path="/booked" component={Booked}/>
+          <Route exact path="/meeting" component={Meeting} />
         </Router>
     </div>
   );

@@ -17,6 +17,11 @@ const defaultValue = {
         isLoading: false,
         error:  {}
     },
+    meeting : {
+        data : [],
+        isLoading : false,
+        error : {}
+    },
     isLogin : false,
     error : {}
 }
@@ -87,6 +92,30 @@ export default function fetchAllSeat(state=defaultValue, action){
                     error: action.payload
                 }
             }
+        case 'LOADING-MEETING' : 
+            return {
+                ...state,
+                meeting : {
+                    isLoading : action.payload
+                }
+            }
+        case 'DATA-MEETING' : {
+            return {
+                ...state,
+                meeting : {
+                    data : action.payload
+                }
+            }
+        }
+        case 'ERROR_MEETING' : {
+            return {
+                ...state,
+                meeting : {
+                    error : action.payload
+                }
+            }
+        }
+
         default:
             return state
     }

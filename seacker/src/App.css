@@ -40,6 +40,9 @@
   margin-top : 5px; 
 }
 
+.paddingPage {
+  padding : 20px;
+}
 .formposition{
   display: flex;
   flex-direction:row-reverse;
