@@ -5,29 +5,44 @@ import { fetchSeats, detailSeat, bookSeat } from '../stores/actions'
 import Modal from 'react-bootstrap/Modal'
 import Spinner from 'react-bootstrap/Spinner'
 
+const userId = localStorage.getItem('userid')
+
 function Dashboard(props) {
-    const [show, setShow] = useState(false);
+    const [show1, setShow1] = useState(false);
+    const [show2, setShow2] = useState(false);
     const [ID, setId] = useState('')
     const [data, setData] = useState([])
     const [ubah, setUbah] = useState(false)
     const [fetching, setFetch] = useState(true)
 
     const handleCancel = () => {
-        setShow(false)
+        setShow1(false)
+        setShow2(false)
     }
 
     const handleClose = (e) => {
         // console.log(id, 'mau book nih')
         e.preventDefault()
-        setShow(false)
+        setShow1(false)
+        setShow2(false)
         setUbah(true)
         props.bookSeat(ID, props.history)
     };
 
     const handleShow = (id) => {
-        setShow(true);
+        setShow1(true);
         props.detailSeat(id)
         setId(id)
+    }
+
+    const checkout = (id) => {
+        setShow2(true);
+        props.detailSeat(id)
+        setId(id)
+    }
+
+    const toMeetingForm = () => {
+        props.history.push('/meeting')
     }
 
     const fetch = () => {
@@ -55,17 +70,51 @@ function Dashboard(props) {
                 !props.isLoading && props.allSeat.data && (
                     <div>
                         <img src={require("../assets/landingPage.png")} style={{ width: '1350px', height: '625px' }} alt='denah'></img>
+                       <Button bsStyle="primary" style={{
+                            position: 'absolute', left: 1075, top: 135, zIndex: 1
+                        }} onClick={toMeetingForm}
+                        > 
+                            Booking Meeting Room
+                        </Button>
                         {
                             props.allSeat.data.map((pos, index) => (
                                 pos.taker ? (
-                                    <>
-                                <Button disabled style={{
-                                    position: 'absolute', left: pos.coorX, top: pos.coorY, zIndex: 1,
-                                    width: 1, height: 1, margin: 5, padding: 5, backgroundColor: 'red'
-                                }}
-                                    key={index} onClick={() => handleShow(pos._id)}
-                                ></Button>
-                                </>    
+                                    (pos.taker._id === userId) ? (
+                                        <>
+                                            <Button style={{
+                                                position: 'absolute', left: pos.coorX, top: pos.coorY, zIndex: 1,
+                                                width: 1, height: 1, margin: 5, padding: 5, backgroundColor: 'purple'
+                                            }}
+                                                key={index} onClick={() => checkout(pos._id)}
+                                            ></Button>
+                                            {
+                                                        props.seatDetail.detail && props.seatDetail.detail.blockName && (
+                                                            <Modal show={show2} onHide={handleCancel} >
+                                                                <Modal.Header closeButton>
+                                                                    <Modal.Title>Checking Out</Modal.Title>
+                                                                </Modal.Header>
+                                                                    <Modal.Body>Do you want to check out???</Modal.Body>
+                                                                    <Modal.Footer>
+                                                                        <Button variant="secondary" onClick={() => handleCancel()}>
+                                                                            Cancel
+                                                                        </Button>
+                                                                        <Button variant="primary" onClick={(e) => handleClose(e)}>
+                                                                            Yes
+                                                                        </Button>
+                                                                    </Modal.Footer>
+                                                            </Modal>
+                                                        )
+                
+                                                }
+                                            </> 
+                                    ) : (
+                                        <Button disabled style={{
+                                            position: 'absolute', left: pos.coorX, top: pos.coorY, zIndex: 1,
+                                            width: 1, height: 1, margin: 5, padding: 5, backgroundColor: 'red'
+                                        }}
+                                            key={index} onClick={() => handleShow(pos._id)}
+                                        ></Button> 
+                                    )
                                 ) : (
                                     <>
                                     <Button style={{
@@ -73,10 +122,11 @@ function Dashboard(props) {
                                         width: 1, height: 1, margin: 5, padding: 5, backgroundColor: 'green'
                                     }}
                                         key={index} onClick={() => handleShow(pos._id)}
+                                        
                                     ></Button>
                                     {
                                             props.seatDetail.detail && props.seatDetail.detail.blockName && (
-                                                <Modal show={show} onHide={handleCancel} >
+                                                <Modal show={show1} onHide={handleCancel} >
                                                     <Modal.Header closeButton>
                                                         <Modal.Title>Booking Seat</Modal.Title>
                                                     </Modal.Header>

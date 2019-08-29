@@ -2,7 +2,6 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 export function loginUser(data, history){
-    console.log("aku masuk sini")
     return(dispatch => {
         dispatch({
             type: 'LOADING',
@@ -12,8 +11,7 @@ export function loginUser(data, history){
             nik : data.nik,
             password : data.password
         })
-        .then((login)=> {
-            console.log('success')
+        .then(({data})=> {
             dispatch({
                 type: 'LOADING',
                 payload: false
@@ -22,13 +20,12 @@ export function loginUser(data, history){
                 type: 'LOGIN',
                 payload: true
             })
-            localStorage.setItem('token', login.data.token)
-            console.log(history, "ini history login")
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('userid', data.user._id)
             history.push('/dashboard')
             // localStorage.setItem('email', login.user.email)
         })
         .catch(err=> {
-            console.log(err)
             dispatch({
                 type: 'LOADING',
                 payload: false
@@ -73,7 +70,6 @@ export function fetchSeats (){
             })
         })
         .catch((err)=> {
-            console.log(err)
             dispatch({
                 type: 'LOAD_FETCH',
                 payload: false
@@ -87,7 +83,6 @@ export function fetchSeats (){
 }
 
 export function detailSeat(id){
-    console.log('masuk detail action')
     return(dispatch => {
         dispatch({
             type: 'LOAD_DETAIL',
@@ -118,7 +113,6 @@ export function detailSeat(id){
 }
 
 export function bookSeat(id, history){
-    console.log(id,'masuk')
     return(dispatch => {
         dispatch({
             type: 'LOAD_BOOK',

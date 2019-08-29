@@ -8,7 +8,6 @@ import { Navbar, Button, Nav, Form, FormControl, NavDropdown} from 'react-bootst
 const NavbarPage = (props) => {
     
     useEffect(() => {
-        console.log(props, "halo aku props dr navbar")
     }, [])
 
     function logout(e){
