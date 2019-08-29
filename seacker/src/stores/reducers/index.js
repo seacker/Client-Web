@@ -22,6 +22,10 @@ const defaultValue = {
         isLoading : false,
         error : {}
     },
+    bookMeet:{
+        isLoading: false,
+        error: {}
+    },
     isLogin : false,
     error : {}
 }
@@ -115,7 +119,22 @@ export default function fetchAllSeat(state=defaultValue, action){
                 }
             }
         }
-
+        case 'LOAD_BOOKMEET' : {
+            return{
+                ...state,
+                bookMeet : {
+                    isLoading: action.payload
+                }
+            }
+        }
+        case 'ERROR-MEETINGBOOK' : {
+            return{
+                ...state,
+                bookMeet: {
+                    error: action.payload
+                }
+            }
+        }
         default:
             return state
     }
