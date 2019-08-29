@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import TimePicker from 'react-bootstrap-time-picker'
+import TableSchedule from '../components/tableSchedule.js'
 import {Container, Row, Col, Table, Form, Button} from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { fetchMeeting, bookMeeting } from '../stores/actions'
@@ -17,6 +18,13 @@ function MeetingRoom(props){
     const [color3, setColor3] = useState('green')
     const [color4, setColor4] = useState('green')
     const [rooms, setRooms] = useState(null)
+    const [colorA, setColorA] = useState(false)
+    const [colorB, setColorB] = useState(false)
+    const [colorC, setColorC] = useState(false)
+    const [colorD, setColorD] = useState(false)
+
+
+    var filterSchedule = null
 
     useEffect(() => {
         props.fetchMeeting()
@@ -25,7 +33,7 @@ function MeetingRoom(props){
             props.history.push('/')
         }
 
-    }, [])
+    }, [meetingNow])
 
     function getDate(value){
         // console.log(new Date(value), "ini datenya")
@@ -41,6 +49,7 @@ function MeetingRoom(props){
             }
         })
         setMeetingNow(filter)
+        filterSchedule = filter
     }
     // console.log(meetingNow, "ini jadwal yang sama")
 
@@ -76,10 +85,6 @@ function MeetingRoom(props){
         setEndTime(converted)
     }
 
-    const [colorA, setColorA] = useState(false)
-    const [colorB, setColorB] = useState(false)
-    const [colorC, setColorC] = useState(false)
-    const [colorD, setColorD] = useState(false)
 
     function changeColor1(){
         setColor1('black')
@@ -126,55 +131,52 @@ function MeetingRoom(props){
         if(colorA === true || colorB === true || colorC === true || colorD === true){
             setRooms(arr)
         }
-
-        props.bookMeeting({
-            arrRooms: rooms,
+   
+        const bookingRoom = {
+            arrRooms: arr,
             startBook,
             endBook,
             date
-        })
+        }
+
+        console.log(bookingRoom, "nyaw data booking room")
+        // createData(bookingRoom)
+        props.bookMeeting(bookingRoom)
     }
 
-    useEffect(()=> {
-        
-    },[rooms])
-
+   
     return (
         <Container fluid>
             <Row className ="paddingPage">
-                <Col md="5">
-                    {/* ini ntar dijadiin component aja tablenya nop, thx */}
+                <Col md="6">
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                            <th rowSpan={2} style={{textAlign : 'center', textJustify:'center'}}>No</th>
+                            <th colSpan={5} style={{textAlign: 'center'}}>List of Schedule</th>
+                        </tr>
+                        <tr>
+                        {/* <th>#</th> */}
+                            <th>Time</th>
+                            <th>Rooms</th>
+                            <th>Booked By</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        </tr>
-                        <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <td>3</td>
-                        <td colSpan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        </tr>
+                        {
+                            meetingNow.map((schedule, i) => (
+                                <tr key={i}>
+                                <td>{i+1}</td>
+                                <td>{`${schedule.startBook} - ${schedule.endBook}`}</td>
+                                <td>{schedule.arrRooms}</td>
+                                <td>{schedule.UserBook.name}</td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                     </Table>
                 </Col>
-                <Col md="7">
+                <Col md="6">
                     <div>
                         <Form>
                         <Form.Group>
@@ -183,11 +185,11 @@ function MeetingRoom(props){
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Start Time</Form.Label>
-                            <TimePicker onChange={getTime} value={time}/>
+                            <TimePicker start="09:00" end="18:00" onChange={getTime} value={time}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>End Time</Form.Label>
-                            <TimePicker onChange={getEndTime} value={gendTime} />
+                            <TimePicker start="09:00" end="18:00" onChange={getEndTime} value={gendTime} />
                         </Form.Group>
                         <div>
                             <img src={require('../image/meetingRoom.PNG')} alt="meeting room picture" width="700px"/>
@@ -197,25 +199,25 @@ function MeetingRoom(props){
                                 }}
                                     key='A' onClick={()=>
                                         changeColor1()}
-                                ></Button> 
+                                > A </Button> 
                                 <Button style={{
                                     position: 'absolute', left: 263, top: 330, zIndex: 1,
                                     width: 40, height: 100, backgroundColor: color2
                                 }}
                                     key='B' onClick={()=>changeColor2()}
-                                ></Button>
+                                > B </Button>
                                 <Button style={{
                                     position: 'absolute', left: 432, top: 330, zIndex: 1,
                                     width: 40, height: 100, backgroundColor: color3
                                 }}
                                     key='C' onClick={()=>changeColor3()}
-                                ></Button>
+                                > C </Button>
                                 <Button style={{
                                     position: 'absolute', left: 581, top: 330, zIndex: 1,
                                     width: 40, height: 100, backgroundColor: color4
                                 }}
                                     key='D' onClick={()=>changeColor4()}
-                                ></Button>
+                                > D </Button>
                         </div>
                         <div>
                             <button className="btn-custom" type="submit" onClick={ () => saveRoom()}>Submit</button>

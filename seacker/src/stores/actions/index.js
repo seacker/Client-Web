@@ -133,9 +133,21 @@ export function bookSeat(id, history){
             .catch(err => {
                 console.log(err, 'errrrrrrrr')
                 dispatch({
+                    type: 'LOAD_BOOK',
+                    payload: false
+                })
+                dispatch({
                     type : `ERROR-BOOKING`,
                     payload : err
                 })
+
+                Swal.fire({
+                    // type: 'error',
+                    imageUrl:`https://media.giphy.com/media/1wpb8YKWT5JmPG5VjV/200w_d.gif` ,
+                    title: 'Oops...',
+                    text: 'You already check in!'
+                })
+                
             })
     })
 }
@@ -192,11 +204,19 @@ export function bookMeeting(data, history){
                     type: 'LOAD_BOOKMEET',
                     payload: false
                 })
-                console.log(history, "ini history action")
-                history.push('/booked', {from:'meeting'})
+                // console.log(history, "ini history action")
+              history.push('/booked', {from:'meeting'})
             })
             .catch(err => {
-                console.log(err, 'errrrrrrrr')
+                Swal.fire({
+                    imageUrl:`https://media.giphy.com/media/1wpb8YKWT5JmPG5VjV/200w_d.gif` ,
+                    title: 'Oops...',
+                    text: `Sorry, you can't booking room before today`
+                })
+                dispatch({
+                    type: 'LOAD_BOOKMEET',
+                    payload: false
+                })
                 dispatch({
                     type : `ERROR-MEETINGBOOK`,
                     payload : err
