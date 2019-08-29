@@ -17,6 +17,16 @@
   padding: 20px;
 }
 
+.formMeeting{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width : 80%;
+  height : 80%;
+  border: 0.5px solid black;
+  padding : 10;
+}
+
 .btn-custom{
   background-color: #BA3025;
   color : #fff;

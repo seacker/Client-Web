@@ -50,7 +50,7 @@ export function checkLogin(value){
     return(dispatch => {
         dispatch({
             type : 'LOGIN',
-            payload : false
+            payload : value
         })
     })
 }
