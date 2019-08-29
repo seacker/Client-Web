@@ -35,6 +35,8 @@
   text-align: center;
 }
 
+
+
 .leftButton{
   margin-left: 10px;
   margin-top : 5px; 
@@ -59,6 +61,11 @@
   border: 0.5px solid grey;
   height: 80%;
   min-height: 80%
+}
+
+#button-meeting{
+  width: '10px';
+  height: '10px';
 }
 
 /* .App {

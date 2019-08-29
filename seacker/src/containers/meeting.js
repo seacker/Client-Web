@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import TimePicker from 'react-bootstrap-time-picker'
-import {Container, Row, Col, Table, Form} from 'react-bootstrap'
+import {Container, Row, Col, Table, Form, Button} from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { fetchMeeting } from '../stores/actions'
 
@@ -12,6 +12,11 @@ function MeetingRoom(props){
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
     const [meetingNow, setMeetingNow] = useState([])
+    const [color1, setColor1] = useState('green')
+    const [color2, setColor2] = useState('green')
+    const [color3, setColor3] = useState('green')
+    const [color4, setColor4] = useState('green')
+    const [rooms, setRooms] = useState(null)
 
     useEffect(() => {
         props.fetchMeeting()
@@ -78,10 +83,60 @@ function MeetingRoom(props){
         setEndTime(converted)
     }
 
-    function bookMeetingRoom(){
-
+    const [colorA, setColorA] = useState(false)
+    const [colorB, setColorB] = useState(false)
+    const [colorC, setColorC] = useState(false)
+    const [colorD, setColorD] = useState(false)
+    function changeColor1(){
+        console.log('masuk awal color1')
+        setColor1('black')
+        setColorA(true)
+        if(color1 === 'black'){
+            console.log('masuk ganti color 1')
+            setColorA(false)
+            setColor1('green')
+            
+        }
     }
-    
+    function changeColor2(){
+        setColor2('black')
+        setColorB(true)
+        if(color1 === 'black'){
+            setColorB(false)
+            setColor1('green')
+            
+        }
+    }
+    function changeColor3(){
+        setColor3('black')
+        setColorC(true)
+        if(color1 === 'black'){
+            setColorC(false)
+            setColor1('green')
+        }
+    }
+    function changeColor4(){
+        setColor4('black')
+        setColorD(true)
+        if(color1 === 'black'){
+            setColorD(false)
+            setColor1('green')
+        }
+    }
+
+    function saveRoom(){
+        console.log('masuk save room')
+        const arr = []
+        colorA && (arr.push('A'))
+        colorB && (arr.push('B'))
+        colorC && (arr.push('C'))
+        colorD && (arr.push('D'))
+        if(colorA === true || colorB === true || colorC === true || colorD === true){
+            setRooms(arr)
+            console.log(rooms)
+        }
+    }
+
     return (
         <Container fluid>
             <Row className ="paddingPage">
@@ -134,9 +189,35 @@ function MeetingRoom(props){
                         </Form.Group>
                         <div>
                             <img src={require('../image/meetingRoom.PNG')} alt="meeting room picture" width="700px"/>
+                                <Button style={{
+                                    position: 'absolute', left: 104, top: 330, zIndex: 1,
+                                    width: 40, height: 100, backgroundColor: color1
+                                }}
+                                    key='A' onClick={()=>
+                                        changeColor1()}
+                                ></Button> 
+                                <Button style={{
+                                    position: 'absolute', left: 263, top: 330, zIndex: 1,
+                                    width: 40, height: 100, backgroundColor: color2
+                                }}
+                                    key='B' onClick={()=>changeColor2()}
+                                ></Button>
+                                <Button style={{
+                                    position: 'absolute', left: 432, top: 330, zIndex: 1,
+                                    width: 40, height: 100, backgroundColor: color3
+                                }}
+                                    key='C' onClick={()=>changeColor3()}
+                                ></Button>
+                                <Button style={{
+                                    position: 'absolute', left: 581, top: 330, zIndex: 1,
+                                    width: 40, height: 100, backgroundColor: color4
+                                }}
+                                    key='D' onClick={()=>changeColor4()}
+                                ></Button>
                         </div>
                         <div>
-                            <button className="btn-custom" type="submit">Submit</button>
+                            <Button onClick={ () => saveRoom()}></Button>
+                            <button className="btn-custom" type="submit" onClick={ () => saveRoom()}>Submit</button>
                         </div>
                         </Form>
                     </div>

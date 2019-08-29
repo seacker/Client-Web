@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Form from '../components/formLogin.js'
 
-const landingPage = () => {
+const landingPage = (props) => {
     return (
         <div className="bgLanding">
             <div className="formposition">
